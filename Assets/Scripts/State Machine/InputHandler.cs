@@ -2,7 +2,12 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
+    #region Settings
+    [Header("Settings")]
     [SerializeField] float deadZone = 0.2f;
+    #endregion
+
+    #region Internal Variables
     private bool isJumpButtonPressed = false;
     private Vector3 direction = Vector3.zero;
     private Vector3 rawInput = Vector3.zero;
@@ -13,60 +18,19 @@ public class InputHandler : MonoBehaviour
     private bool isEquipButtonPressed = false;
     private bool isShieldButtonPressed = false;
     private bool isRollButtonPressed;
+    #endregion
 
-    public bool IsJumpButtonPressed
-    {
-        get => isJumpButtonPressed;
-        set => isJumpButtonPressed = value;
-    }
-
-    public Vector3 Direction
-    {
-        get => direction;
-        set => direction = value;
-    }
-
-    public bool InputEnabled
-    {
-        get => inputEnabled;
-        set => inputEnabled = value;
-    }
-
-    public Vector3 RawInput
-    {
-        get => rawInput;
-        set => rawInput = value;
-    }
-
-    public bool AttackButtonPressed
-    {
-        get => attackButtonPressed;
-        set => attackButtonPressed = value;
-    }
-
-    public bool IsRunButtonPressed
-    {
-        get => isRunButtonPressed;
-        set => isRunButtonPressed = value;
-    }
-
-    public bool IsEquipButtonPressed
-    {
-        get => isEquipButtonPressed;
-        set => isEquipButtonPressed = value;
-    }
-
-    public bool IsShieldButtonPressed
-    {
-        get => isShieldButtonPressed;
-        set => isShieldButtonPressed = value;
-    }
-
-    public bool IsRollButtonPressed
-    {
-        get => isRollButtonPressed;
-        set => isRollButtonPressed = value;
-    }
+    #region Properties
+    public bool IsJumpButtonPressed{get => isJumpButtonPressed;set => isJumpButtonPressed = value;}
+    public Vector3 Direction{get => direction;set => direction = value;}
+    public bool InputEnabled{get => inputEnabled;set => inputEnabled = value;}
+    public Vector3 RawInput{get => rawInput;set => rawInput = value;}
+    public bool AttackButtonPressed{get => attackButtonPressed;set => attackButtonPressed = value;}
+    public bool IsRunButtonPressed{get => isRunButtonPressed;set => isRunButtonPressed = value;}
+    public bool IsEquipButtonPressed{get => isEquipButtonPressed;set => isEquipButtonPressed = value;}
+    public bool IsShieldButtonPressed{get => isShieldButtonPressed;set => isShieldButtonPressed = value;}
+    public bool IsRollButtonPressed{get => isRollButtonPressed;set => isRollButtonPressed = value;}
+    #endregion
 
     // Update is called once per frame
     void Update()

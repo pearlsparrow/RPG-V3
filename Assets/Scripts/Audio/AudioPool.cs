@@ -11,7 +11,8 @@ public class AudioPool : MonoBehaviour
     {
         if (inst != null)
         {
-            
+            //If more than one instance found, destroy the latest
+            Destroy(gameObject);
         }
 
         inst = this;

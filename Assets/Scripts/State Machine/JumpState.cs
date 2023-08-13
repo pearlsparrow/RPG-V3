@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 public class JumpState : BaseState
 {
     bool landingEnded = false;

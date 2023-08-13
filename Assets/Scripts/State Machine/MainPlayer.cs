@@ -6,11 +6,11 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class MainPlayer : MonoBehaviour
 {
-    [Header("Settings")] [SerializeField] private float speed;
-    [SerializeField] private float rotationSmoothTime;
+    #region Settings Variables
+    
+    [Header("Settings")] [SerializeField] private float speed = 5f;
+    [SerializeField] private float rotationSmoothTime = 0.07f;
     [SerializeField] private float smoothAcceleration = 0.2f;
-    [SerializeField] private float acceleration;
-    [SerializeField] private float deAccelaration;
     [SerializeField] private float jumpHeigh = 3f;
     [SerializeField] private float gravity = 9.81f;
     [SerializeField] private float jumpFallGravity = 14.00f;
@@ -21,22 +21,29 @@ public class MainPlayer : MonoBehaviour
     //[SerializeField] float nearGroundValue = 0.4f;
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private AudioClip[] footSteps;
-
-
+    [SerializeField] private Camera mainCamera;
+    
+    #endregion
+    
+    #region Weapon System Vaiables
     [Header("Weapons")] public GameObject rightHandEquipedSlot;
     public GameObject leftHandEquipedSlot;
     public GameObject rightHandUnequipedSlot;
     public GameObject leftHandUnequipedSlot;
-
     public GameObject rightHandItem;
     public GameObject leftHandItem;
-
-    private float accelarationClamp = 1f;
+    #endregion
+    
+    #region Component References
+    private AnimancerComponent animancer;
     private InputHandler inputHandler;
     private CharacterController characterController;
     private StateMachine stateMachine;
     private StateFactory factory;
     private Animator animator;
+    #endregion
+    
+    #region Internal Variables
     public bool isGrounded = true;
     private Vector3 velocity;
     private Vector3 currentPos;
@@ -46,7 +53,7 @@ public class MainPlayer : MonoBehaviour
     private float targetAngle;
     private TrackWalls trackWalls;
     private float maxSpeed;
-
+    private float accelarationClamp = 1f;
     private float currentAccelaration;
     private float currentAngle;
     private float currentAngleVelocity;
@@ -62,14 +69,16 @@ public class MainPlayer : MonoBehaviour
     private bool equiped = false;
     private Vector3 lastDirection;
     private float lastAcceleration;
+    #endregion
 
-    private AnimancerComponent animancer;
+    #region Blend Tree References
     [Header("Animations")] public Float1ControllerTransition blendEquiped;
     public Float1ControllerTransition blendUnequiped;
     public Float1ControllerTransition blendShield;
     Float1ControllerState state;
+    #endregion
 
-
+    #region Animation References
     public ClipTransition jump;
     public ClipTransition inAir;
     public ClipTransition landing;
@@ -85,207 +94,46 @@ public class MainPlayer : MonoBehaviour
     public ClipTransition BlockIn;
     public ClipTransition BlockOut;
     public ClipTransition roll;
+    #endregion
 
-
-    public StateMachine StateMachine
-    {
-        get => stateMachine;
-        set => stateMachine = value;
-    }
-
-    public StateFactory Factory
-    {
-        get => factory;
-        set => factory = value;
-    }
-
-    public Animator Animator
-    {
-        get => animator;
-        set => animator = value;
-    }
-
-    public bool IsGrounded
-    {
-        get => isGrounded;
-        set => isGrounded = value;
-    }
-
-    public Vector3 Velocity
-    {
-        get => velocity;
-        set => velocity = value;
-    }
-
-    public bool IsNearGround
-    {
-        get => isNearGround;
-        set => isNearGround = value;
-    }
-
-    public InputHandler InputHandler
-    {
-        get => inputHandler;
-        set => inputHandler = value;
-    }
-
-    public float DirectionY
-    {
-        get => directionY;
-        set => directionY = value;
-    }
-
-    public float DownForce
-    {
-        get => downForce;
-        set => downForce = value;
-    }
-
-    public float WaterDownForce
-    {
-        get => waterDownForce;
-        set => waterDownForce = value;
-    }
-
-    public float CurrentGravity
-    {
-        get => currentGravity;
-        set => currentGravity = value;
-    }
-
-    public float Gravity
-    {
-        get => gravity;
-        set => gravity = value;
-    }
-
-    public float JumpFallModifier
-    {
-        get => jumpFallModifier;
-        set => jumpFallModifier = value;
-    }
-
-    public float JumpHeigh
-    {
-        get => jumpHeigh;
-        set => jumpHeigh = value;
-    }
-
-    public CharacterController CharacterController
-    {
-        get => characterController;
-        set => characterController = value;
-    }
-
-    public Vector3 RotatedMovement
-    {
-        get => rotatedMovement;
-        set => rotatedMovement = value;
-    }
-
-    public float AccelarationClamp
-    {
-        get => accelarationClamp;
-        set => accelarationClamp = value;
-    }
-
-    public float CurrentAccelaration
-    {
-        get => currentAccelaration;
-        set => currentAccelaration = value;
-    }
-
-    public float JumpFallGravity
-    {
-        get => jumpFallGravity;
-        set => jumpFallGravity = value;
-    }
-
-    public float Speed
-    {
-        get => speed;
-        set => speed = value;
-    }
-
-    public bool AttackEnded1
-    {
-        get => attackEnded;
-        set => attackEnded = value;
-    }
-
-    public bool NextAttack
-    {
-        get => nextAttack;
-        set => nextAttack = value;
-    }
-
-    public bool CanMove
-    {
-        get => canMove;
-        set => canMove = value;
-    }
-
-    public bool CanClimb
-    {
-        get => canClimb;
-        set => canClimb = value;
-    }
-
-    public TrackWalls TrackWalls
-    {
-        get => trackWalls;
-        set => trackWalls = value;
-    }
-
-    public bool CanGoBackToGround
-    {
-        get => canGoBackToGround;
-        set => canGoBackToGround = value;
-    }
-
-    public AnimancerComponent Animancer
-    {
-        get => animancer;
-        set => animancer = value;
-    }
-
-    public bool Equiped
-    {
-        get => equiped;
-        set => equiped = value;
-    }
-
-    public Float1ControllerState State
-    {
-        get => state;
-        set => state = value;
-    }
-
-    public float MaxSpeed
-    {
-        get => maxSpeed;
-        set => maxSpeed = value;
-    }
-
-    public Vector3 LastDirection
-    {
-        get => lastDirection;
-        set => lastDirection = value;
-    }
-
-    public float LastAcceleration
-    {
-        get => lastAcceleration;
-        set => lastAcceleration = value;
-    }
-
-    public float CurrentAngle
-    {
-        get => currentAngle;
-        set => currentAngle = value;
-    }
-
-
+    #region Properties
+    //Properties for use outside the class
+    public StateMachine StateMachine{get => stateMachine; set => stateMachine = value;}
+    public StateFactory Factory{get => factory;set => factory = value;}
+    public Animator Animator{get => animator;set => animator = value;}
+    public bool IsGrounded{get => isGrounded;set => isGrounded = value;}
+    public Vector3 Velocity{get => velocity;set => velocity = value;}
+    public bool IsNearGround{get => isNearGround;set => isNearGround = value;}
+    public InputHandler InputHandler{get => inputHandler;set => inputHandler = value;}
+    public float DirectionY{get => directionY;set => directionY = value;}
+    public float DownForce{get => downForce;    }
+    public float WaterDownForce{get => waterDownForce;set => waterDownForce = value;}
+    public float CurrentGravity{get => currentGravity;set => currentGravity = value;}
+    public float Gravity{get => gravity;set => gravity = value;}
+    public float JumpFallModifier{get => jumpFallModifier;set => jumpFallModifier = value;}
+    public float JumpHeigh{get => jumpHeigh;set => jumpHeigh = value;}
+    public CharacterController CharacterController{get => characterController;set => characterController = value;}
+    public Vector3 RotatedMovement{get => rotatedMovement;set => rotatedMovement = value;}
+    public float AccelarationClamp{get => accelarationClamp;set => accelarationClamp = value;}
+    public float CurrentAccelaration{get => currentAccelaration;set => currentAccelaration = value;}
+    public float JumpFallGravity{get => jumpFallGravity;set => jumpFallGravity = value;}
+    public float Speed{get => speed;set => speed = value;}
+    public bool AttackEnded1{get => attackEnded;set => attackEnded = value;}
+    public bool NextAttack{get => nextAttack;set => nextAttack = value;}
+    public bool CanMove{get => canMove;set => canMove = value;}
+    public bool CanClimb{get => canClimb;set => canClimb = value;}
+    public TrackWalls TrackWalls{get => trackWalls;set => trackWalls = value;}
+    public bool CanGoBackToGround{get => canGoBackToGround;set => canGoBackToGround = value;}
+    public AnimancerComponent Animancer{get => animancer;set => animancer = value;}
+    public bool Equiped {get => equiped;set => equiped = value;}
+    public Float1ControllerState State{get => state;set => state = value;}
+    public float MaxSpeed{get => maxSpeed;set => maxSpeed = value;}
+    public Vector3 LastDirection {get => lastDirection;set => lastDirection = value;}
+    public float LastAcceleration{get => lastAcceleration;set => lastAcceleration = value;}
+    public float CurrentAngle{get => currentAngle;set => currentAngle = value;}
+    
+    #endregion
+    
     private void Awake()
     {
         Cursor.visible = false;
@@ -294,7 +142,7 @@ public class MainPlayer : MonoBehaviour
         //Init State machine
         factory = new StateFactory(this);
         stateMachine = new StateMachine(this);
-
+        
         //Init components
         inputHandler = GetComponent<InputHandler>();
         CharacterController = GetComponent<CharacterController>();
@@ -332,7 +180,7 @@ public class MainPlayer : MonoBehaviour
         isGrounded = CharacterController.isGrounded;
     }
 
-    public void MovementHandler()
+    private void MovementHandler()
     {
         //Velocity
         currentPos = transform.position;
@@ -344,7 +192,7 @@ public class MainPlayer : MonoBehaviour
         previousPos = currentPos;
     }
 
-    public void DirectionYHandler()
+    private void DirectionYHandler()
     {
         CharacterController.Move(new Vector3(0f, DirectionY, 0f) * Time.deltaTime);
     }
@@ -354,27 +202,33 @@ public class MainPlayer : MonoBehaviour
         state.Parameter = currentAccelaration;
     }
 
-    float xAgle;
-    float zAgle;
-    float refVelocityx;
-    float refVelocityz;
+    private float xAgle;
+    private float zAgle;
+    private float refVelocityx;
+    private float refVelocityz;
 
     private void DirectionInput()
     {
-        if (inputHandler.RawInput.magnitude > 0f)
+        
+        
+        if (inputHandler.RawInput.magnitude > 0.15f)
         {
-            targetAngle = Mathf.Atan2(InputHandler.RawInput.x, InputHandler.RawInput.z) * Mathf.Rad2Deg +
-                          Camera.main.transform.eulerAngles.y;
-            currentAngle =
-                Mathf.SmoothDampAngle(currentAngle, targetAngle, ref currentAngleVelocity, rotationSmoothTime);
-            xAgle = Mathf.SmoothDampAngle(transform.rotation.eulerAngles.x, 0, ref refVelocityx, 0.1f);
-            zAgle = Mathf.SmoothDampAngle(transform.rotation.eulerAngles.z, 0, ref refVelocityz, 0.1f);
+            var rotationTMP = transform.rotation;
+            targetAngle = Mathf.Atan2(InputHandler.RawInput.x, InputHandler.RawInput.z) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.y;
+            currentAngle = Mathf.SmoothDampAngle(currentAngle, targetAngle, ref currentAngleVelocity, rotationSmoothTime);
+            xAgle = Mathf.SmoothDampAngle(rotationTMP.eulerAngles.x, 0, ref refVelocityx, 0.1f);
+            zAgle = Mathf.SmoothDampAngle(rotationTMP.eulerAngles.z, 0, ref refVelocityz, 0.1f);
             transform.rotation = Quaternion.Euler(xAgle, currentAngle, zAgle);
-
             RotatedMovement = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
-            //RotatedMovement = Vector3.ClampMagnitude(RotatedMovement, 1);
-            lastDirection = rotatedMovement;
         }
+        else
+        {
+            rotatedMovement = transform.forward;
+        }
+        
+        
+        //RotatedMovement = Vector3.ClampMagnitude(RotatedMovement, 1);
+        lastDirection = rotatedMovement;
     }
 
     private void HandleAccelaration()
@@ -391,15 +245,8 @@ public class MainPlayer : MonoBehaviour
         lastAcceleration = currentAccelaration;
     }
 
-    public void AttackEnded()
-    {
-        //nextAttack = false;
-        //AttackEnded1 = true;
-    }
-
     Vector3 climpRef;
     Vector3 climpPosRef;
-
     public void Climb()
     {
         Vector3 DirectionUp = Vector3.Cross(trackWalls.HitMid.normal, -transform.right);
@@ -416,8 +263,7 @@ public class MainPlayer : MonoBehaviour
 
     public Vector3 CalculateAngledDirection()
     {
-        float target = Mathf.Atan2(InputHandler.RawInput.x, InputHandler.RawInput.z) * Mathf.Rad2Deg +
-                       Camera.main.transform.eulerAngles.y;
+        float target = Mathf.Atan2(InputHandler.RawInput.x, InputHandler.RawInput.z) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.y;
         Vector3 direction = Quaternion.Euler(0, target, 0) * Vector3.forward;
         return Vector3.ClampMagnitude(direction, 1);
     }
