@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15ed7dccdb910ec4896f03f7cc2ede35, type: 3}
+  m_Name: Main Float 1 Controller Transition Asset
+  m_EditorClassIdentifier: 
+  _Transition:
+    rid: 2728014901810561025
+  references:
+    version: 2
+    RefIds:
+    - rid: 2728014901810561025
+      type: {class: Float1ControllerTransition, ns: Animancer, asm: Animancer}
+      data:
+        _FadeDuration: 0.25
+        _Events:
+          _NormalizedTimes:
+          - 1
+          _Callbacks: []
+          _Names: []
+        _Controller: {fileID: 9100000, guid: e44347e4b38668f45b4b5a162b3430bd, type: 2}
+        _ActionsOnStop: 
+        _ParameterName: 
