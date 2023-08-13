@@ -1,10 +1,12 @@
+using System;
 using FMODUnity;
 using UnityEngine;
 
 
 public class FootStep : MonoBehaviour
 {
-    [SerializeField] private EventReference _name;
+ 
+    
     public LayerMask ground;
     private MainPlayer mainPlayer;
 
@@ -12,11 +14,10 @@ public class FootStep : MonoBehaviour
 
     private bool grounded;
     private bool played;
-    private string labelValue = "Water";
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
+        mainPlayer = GetComponent<MainPlayer>();
     }
 
     // Update is called once per frame
@@ -25,13 +26,22 @@ public class FootStep : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, -transform.up, out hit, 0.1f, ground))
         {
-            Debug.Log(labelValue);
+            
         }
 
         if (Input.GetKeyDown(KeyCode.G))
         {
-            AudioPlayer.PlayOneShotWithParameters(_name, transform.position, "GroundValue", labelValue,
-                ("Speed", speed));
+            
+        }
+    }
+
+    public void FootSteps(AnimationEvent e)
+    {
+        if (e.animatorClipInfo.weight > 0.5)
+        {
+            speed = mainPlayer.CurrentAccelaration;
+            string currentTerrain = AudioPool.inst.terainValue.ToString();
+            AudioPlayer.PlayOneShotWithParameters(AudioPool.inst.footSteps, transform.position, "GroundValue", currentTerrain,("Speed", speed));
         }
     }
 }

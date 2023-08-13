@@ -12,7 +12,9 @@ public class JumpState : BaseState
 
     protected override void OnStateEnter()
     {
-        mainPlayer.Animancer.Play(mainPlayer.jump, 0.1f);
+        string currentTerrain = AudioPool.inst.terainValue.ToString();
+        AudioPlayer.PlayOneShotWithParameters(AudioPool.inst.jump,mainPlayer.transform.position,("JumpLand","Jump","GroundValue",currentTerrain));
+        mainPlayer.Animancer.Play(mainPlayer.jump, 0.12f);
         mainPlayer.CurrentGravity = mainPlayer.Gravity;
         mainPlayer.DirectionY = Mathf.Sqrt(-2 * -mainPlayer.CurrentGravity * mainPlayer.JumpHeigh);
     }
@@ -20,6 +22,8 @@ public class JumpState : BaseState
     protected override void OnStateExit()
     {
         if (mainPlayer.CurrentAccelaration > 1f) mainPlayer.CurrentAccelaration = 1f;
+        string currentTerrain = AudioPool.inst.terainValue.ToString();
+        AudioPlayer.PlayOneShotWithParameters(AudioPool.inst.jump,mainPlayer.transform.position,("JumpLand","Land","GroundValue",currentTerrain));
     }
 
     protected override void OnStateUpdate()
@@ -31,7 +35,7 @@ public class JumpState : BaseState
         if (mainPlayer.IsGrounded && !verified)
         {
             verified = true;
-            var state = mainPlayer.Animancer.Play(mainPlayer.landing, 0.1f);
+            var state = mainPlayer.Animancer.Play(mainPlayer.landing, 0.12f);
             state.Events.Add(0.21f, () => landingEnded = true);
         }
 
