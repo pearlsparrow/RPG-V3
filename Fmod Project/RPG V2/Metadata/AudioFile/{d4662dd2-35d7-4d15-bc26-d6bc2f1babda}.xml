@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{d4662dd2-35d7-4d15-bc26-d6bc2f1babda}">
+		<property name="assetPath">
+			<value>Footsteps - Essentials/Footsteps_Water/Footsteps_Water_Jump/Footsteps_Water_Jump_Light_05.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>1.2071666666666667</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{87a65504-3c0a-41fa-ae27-77e77c4be318}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{ede0ca9e-1d2c-41be-b20c-5d9022f8b448}">
+		<property name="name">
+			<value>JumpLand</value>
+		</property>
+		<relationship name="folder">
+			<destination>{b51a36e1-b8c6-4b6f-9195-38c6e1258119}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{ca2f2fc1-3c86-4ba2-a7ea-01cba8452bd0}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{ca2f2fc1-3c86-4ba2-a7ea-01cba8452bd0}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>Jump</value>
+			<value>Land</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
