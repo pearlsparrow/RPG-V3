@@ -350,8 +350,8 @@ MonoBehaviour:
   switchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: ../../FMOD Studio/RPG V2/RPG V2.fspro
-  sourceBankPath: ../../FMOD Studio/RPG V2/Build
+  sourceProjectPath: Fmod Project/RPG V2/RPG V2.fspro
+  sourceBankPath: Fmod Project/RPG V2/Build
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
